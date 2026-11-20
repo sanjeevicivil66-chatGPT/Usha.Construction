@@ -6,24 +6,55 @@ project:
   locale: en-IN
   timezone: Asia/Kolkata
   location: "Chithod, Erode, Tamil Nadu, India"
+  instruction_contract: AGENTS.md
 runtime:
   stack: [HTML5, CSS3, vanilla-javascript]
   build_command: ""
   publish_directory: "."
+  build_required: false
 entrypoints:
   homepage: index.html
 folders:
   assets:
-    purpose: "Approved brand assets"
+    purpose: "Brand, icons and approved website media"
+  .github:
+    purpose: "Repository automation, scoped instructions and contribution templates"
+    subfolders:
+      workflows: "Continuous integration and repository automation"
+      instructions: "Path-scoped contributor and agent rules"
+  docs:
+    purpose: "Project workflow, deployment runbook, instruction history and playbooks"
+    subfolders:
+      skills: "Reusable task playbooks and repeatable quality procedures"
+  scripts:
+    purpose: "Dependency-light validation and maintenance scripts"
 files:
+  - path: AGENTS.md
+    purpose: "Authoritative engineering, review, security, documentation and release contract"
+  - path: README.md
+    purpose: "Project onboarding, stack, validation and links to operating documentation"
   - path: index.html
     purpose: "Responsive landing page, services, packages, gallery and WhatsApp enquiry"
-  - path: AGENTS.md
-    purpose: "Engineering, Git and deployment instructions"
   - path: index.yaml
-    purpose: "Project inventory and content schema"
+    purpose: "Machine-readable project inventory, schema and hosting configuration"
   - path: assets/usha-logo.svg
-    purpose: "Scalable USHA company wordmark"
+    purpose: "Scalable USHA company wordmark; verify final approved artwork before launch"
+  - path: .github/workflows/ci.yml
+    purpose: "Pull request and main-branch static site validation"
+  - path: .github/instructions/website.instructions.md
+    purpose: "Scoped implementation rules for website source and assets"
+  - path: .github/pull_request_template.md
+    purpose: "Required PR scope, validation, documentation and release checklist"
+  - path: scripts/validate_site.py
+    purpose: "Dependency-free checks for HTML metadata, assets and enquiry funnel"
+  - path: docs/PROJECT_WORKFLOW.md
+    purpose: "End-to-end contribution, commit, PR, review and merge process"
+  - path: docs/DEPLOYMENT.md
+    purpose: "Render hosting target, verified setup status, deployment and rollback runbook"
+  - path: docs/INSTRUCTION_CHANGELOG.md
+    purpose: "Chronological record of durable project instruction and workflow changes"
+  - path: docs/skills/README.md
+    purpose: "Reusable repository audit, implementation, accessibility, CI, release and documentation playbooks"
 content_schema:
   business_name: "USHA CONSTRUCTION & ARCHITECT"
   address: "No.12, Kongampalayam, SVN School Near, Chithod, Erode, Tamil Nadu, India"
@@ -41,6 +72,11 @@ content_schema:
     Premium: 2350
     Elite: 2550
     Luxury: 2850
+  publication_controls:
+    rates_require_owner_confirmation: true
+    contact_details_require_owner_verification: true
+    gallery_images_must_be_owner_approved_before_claiming_company_work: true
+    logo_requires_final_brand_approval: true
   notes:
     - "Rates are indicative and require owner confirmation before publication."
     - "Contact details require owner verification before production release."
@@ -51,14 +87,26 @@ quality:
   semantic_html: true
   accessible_form_labels: true
   external_form_backend: false
+  validator: "python scripts/validate_site.py"
+  ci_workflow: ".github/workflows/ci.yml"
 version_control:
   default_branch: main
-  feature_branch: "feature/website-v2"
+  feature_branch_convention: "feature/<short-name>"
+  fix_branch_convention: "fix/<short-name>"
+  docs_branch_convention: "docs/<short-name>"
   pull_request_required: true
   direct_main_commits: false
+  merge_requires_ci_and_owner_approval: true
+  commit_style: conventional-commits
 hosting:
   provider: Render
   service_type: Static Site
+  service_name_intended: usha-construction-architect
+  workspace: "Er.'s workspace"
+  repository: "sanjeevicivil66-chatGPT/Usha.Construction"
   build_command: ""
   publish_directory: "."
   auto_deploy_branch: main
+  auto_deploy_intended: true
+  connection_status: "pending: Render could not fetch the private GitHub repository"
+  live_url_verified: false

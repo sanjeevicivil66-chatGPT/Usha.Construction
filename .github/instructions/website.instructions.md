@@ -15,3 +15,12 @@ Applies to: `index.html`, `assets/**`, and website-facing static content.
 - Run `python scripts/validate_site.py` and inspect the actual GitHub Actions result.
 - If an implementation change alters content, file structure, runtime, or release behavior, update `index.yaml` and the relevant docs in the same PR.
 - If a durable instruction is improved, update `AGENTS.md` and `docs/INSTRUCTION_CHANGELOG.md` in the same PR.
+
+## Issue and browser verification gate
+
+- Search GitHub issues first. Create a scoped issue before implementation when none exists; link work to the issue.
+- Use an issue-number branch from latest main.
+- Never claim browser testing from source inspection alone.
+- For UI changes, run the Playwright browser suite and visually inspect its screenshots at 360, 390, 430, 768 and 1280 CSS-pixel widths.
+- If Playwright is unavailable, any screenshot is clipped, or any check fails, create/update a GitHub issue and report the blocker; do not request review or merge.
+- Verify the complete owner logo is visible in header and contact card at every viewport; do not use speculative SVG viewBox crops.

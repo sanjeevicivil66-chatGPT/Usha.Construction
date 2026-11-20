@@ -1,5 +1,15 @@
 # Instruction and workflow changelog
 
+## 2026-11-20 — Upgrade the public website experience
+
+- Replaced the temporary logo artwork with the logo image supplied by the owner, wrapped in SVG for consistent sizing.
+- Reworked the homepage into a responsive, motion-enhanced architecture/construction experience with service discovery, project process, indicative package cards, material options, inspiration gallery and FAQs.
+- Replaced the long single-screen enquiry form with a two-step project brief and WhatsApp handoff; clarified that submissions are not stored by a website backend.
+- Added reduced-motion support, mobile navigation, responsive contact actions and accessible interaction states.
+- Updated validation and project inventory to match the new website structure.
+- Rationale: improve brand accuracy, visitor clarity and enquiry completion while preserving the dependency-free static deployment model.
+
+
 Record durable changes to repository rules, agent instructions, automation, skills/playbooks, and release procedures. Newest entries go first. Keep entries factual and link the PR or commit when available.
 
 ## 2026-11-20 — Clarify existing Render-GitHub connector status

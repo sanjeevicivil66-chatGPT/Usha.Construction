@@ -34,11 +34,11 @@ files:
   - path: README.md
     purpose: "Project onboarding, stack, validation and links to operating documentation"
   - path: index.html
-    purpose: "Responsive landing page, services, packages, gallery and WhatsApp enquiry"
+    purpose: "Premium responsive website, services, indicative packages, design inspiration and guided WhatsApp enquiry"
   - path: index.yaml
     purpose: "Machine-readable project inventory, schema and hosting configuration"
   - path: assets/usha-logo.svg
-    purpose: "Scalable USHA company wordmark; verify final approved artwork before launch"
+    purpose: "Owner-provided USHA logo artwork embedded in a responsive SVG wrapper"
   - path: .github/workflows/ci.yml
     purpose: "Pull request and main-branch static site validation"
   - path: .github/instructions/website.instructions.md
@@ -108,6 +108,8 @@ hosting:
   publish_directory: "."
   auto_deploy_branch: main
   auto_deploy_intended: true
-  github_connector_status: "connected per owner confirmation"
-  service_creation_status: "blocked: Render API reports repository invalid or unfetchable"
-  live_url_verified: false
+  service_id: "srv-dc07sdd6e07s73bu49og"
+  public_url: "https://usha-construction-architect.onrender.com"
+  github_connector_status: "connected"
+  service_creation_status: "created"
+  live_url_verified: true

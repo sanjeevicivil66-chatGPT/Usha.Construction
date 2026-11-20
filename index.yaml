@@ -1,119 +1,81 @@
 project:
   name: "USHA CONSTRUCTION & ARCHITECT"
-  slug: usha-construction-architect-website
-  type: static-website
+  slug: usha-construction-architect-platform
+  type: public-website-plus-owner-admin-platform
   language: en
   locale: en-IN
   timezone: Asia/Kolkata
   location: "Chithod, Erode, Tamil Nadu, India"
   instruction_contract: AGENTS.md
 runtime:
-  stack: [HTML5, CSS3, vanilla-javascript]
-  build_command: ""
-  publish_directory: "."
-  build_required: false
+  public_site: HTML5/CSS3/vanilla-javascript
+  api: Node.js 22, TypeScript, Fastify
+  database: SQLite transactional persistence with JSON-shaped records
+  admin_ui: planned component-based TypeScript frontend
+  package_manager: npm workspaces
 entrypoints:
-  homepage: index.html
+  public_homepage: index.html
+  api_server: apps/api/src/server.ts
 folders:
-  assets:
-    purpose: "Brand, icons and approved website media"
-  .github:
-    purpose: "Repository automation, scoped instructions and contribution templates"
-    subfolders:
-      workflows: "Continuous integration and repository automation"
-      instructions: "Path-scoped contributor and agent rules"
-  docs:
-    purpose: "Project workflow, deployment runbook, instruction history and playbooks"
-    subfolders:
-      skills: "Reusable task playbooks and repeatable quality procedures"
-  scripts:
-    purpose: "Dependency-light validation and maintenance scripts"
+  apps/api: "TypeScript Fastify API, configuration, persistence and tests"
+  apps/admin: "Planned component-based owner admin frontend"
+  packages/contracts: "Planned shared versioned JSON Schemas"
+  content/blog: "Planned Markdown blog articles"
+  content/news: "Planned Markdown news articles"
+  data: "Runtime-only database and backups; never commit or publish"
+  assets: "Brand, icons and approved website media"
+  .github: "Repository automation and contribution instructions"
+  docs: "Architecture, workflow, deployment, changelog and playbooks"
+  scripts: "Static validation and maintenance scripts"
 files:
   - path: AGENTS.md
-    purpose: "Authoritative engineering, review, security, documentation and release contract"
+    purpose: "Authoritative engineering, security, review and release contract"
   - path: README.md
-    purpose: "Project onboarding, stack, validation and links to operating documentation"
+    purpose: "Project onboarding and current implementation status"
   - path: index.html
-    purpose: "Premium responsive website, services, indicative packages, design inspiration and guided WhatsApp enquiry"
+    purpose: "Existing public website, preserved during admin migration"
   - path: index.yaml
-    purpose: "Machine-readable project inventory, schema and hosting configuration"
-  - path: assets/usha-logo.svg
-    purpose: "Owner-provided USHA logo, cropped to the USHA mark and Construction & Architects line"
-  - path: .github/workflows/ci.yml
-    purpose: "Pull request and main-branch static site validation"
-  - path: .github/instructions/website.instructions.md
-    purpose: "Scoped implementation rules for website source and assets"
-  - path: .github/pull_request_template.md
-    purpose: "Required PR scope, validation, documentation and release checklist"
-  - path: scripts/validate_site.py
-    purpose: "Dependency-free checks for HTML metadata, assets and enquiry funnel"
-  - path: scripts/browser-smoke.mjs
-    purpose: "Playwright Chromium responsive screenshots and interaction smoke tests"
+    purpose: "Machine-readable project inventory and architecture"
+  - path: package.json
+    purpose: "npm workspace scripts and Node.js engine policy"
+  - path: apps/api/package.json
+    purpose: "API dependencies and validation scripts"
+  - path: apps/api/src/config.ts
+    purpose: "Validated API environment configuration"
+  - path: apps/api/src/db.ts
+    purpose: "SQLite connection and initial relational schema"
+  - path: apps/api/src/app.ts
+    purpose: "Fastify app, security middleware and health endpoints"
+  - path: apps/api/src/server.ts
+    purpose: "API process lifecycle and graceful shutdown"
+  - path: apps/api/src/app.test.ts
+    purpose: "API health and database schema tests"
+  - path: docs/ADMIN_ARCHITECTURE.md
+    purpose: "Phased owner admin architecture and security plan"
   - path: docs/PROJECT_WORKFLOW.md
-    purpose: "End-to-end contribution, commit, PR, review and merge process"
+    purpose: "Issue-first implementation, validation and browser verification"
   - path: docs/DEPLOYMENT.md
-    purpose: "Render hosting target, verified setup status, deployment and rollback runbook"
+    purpose: "Public static site and separately approved API deployment plan"
   - path: docs/INSTRUCTION_CHANGELOG.md
-    purpose: "Chronological record of durable project instruction and workflow changes"
-  - path: docs/skills/README.md
-    purpose: "Reusable repository audit, implementation, accessibility, CI, release and documentation playbooks"
-content_schema:
-  business_name: "USHA CONSTRUCTION & ARCHITECT"
-  address: "No.12, Kongampalayam, SVN School Near, Chithod, Erode, Tamil Nadu, India"
-  phone: "+91 90038 03601"
-  instagram: "@usha_construction_architect"
-  services:
-    - "2D Floor Plan"
-    - "3D Elevation"
-    - "Building Construction"
-    - "Renovation Work"
-    - "Estimation & Quantity"
-    - "Contracting & Site Visit"
-  package_rates_inr_per_sqft:
-    Basic: 2050
-    Premium: 2350
-    Elite: 2550
-    Luxury: 2850
-  publication_controls:
-    rates_require_owner_confirmation: true
-    contact_details_require_owner_verification: true
-    gallery_images_must_be_owner_approved_before_claiming_company_work: true
-    logo_requires_final_brand_approval: true
-  notes:
-    - "Rates are indicative and require owner confirmation before publication."
-    - "Contact details require owner verification before production release."
-    - "Gallery images are illustrative references, not verified completed projects."
-    - "Enquiry form opens WhatsApp; it does not store submissions on a server."
+    purpose: "Durable instruction and workflow changes"
 quality:
-  responsive: true
-  semantic_html: true
-  accessible_form_labels: true
-  external_form_backend: false
-  validator: "python scripts/validate_site.py"
-  ci_workflow: ".github/workflows/ci.yml"
-  browser_tests: "Playwright Chromium responsive smoke tests at 360, 390, 430, 768 and 1280 CSS px"
-  screenshot_artifacts: "website-browser-screenshots"
+  api_tests: "npm test"
+  api_typecheck: "npm run typecheck"
+  api_build: "npm run build:api"
+  public_site_validator: "python scripts/validate_site.py"
+  browser_verification: "Manual connected interactive browser; do not use Playwright"
 version_control:
   default_branch: main
-  feature_branch_convention: "feature/<short-name>"
-  fix_branch_convention: "fix/<short-name>"
-  docs_branch_convention: "docs/<short-name>"
+  feature_branch_convention: "feature/issue-<number>-<slug>"
   pull_request_required: true
   direct_main_commits: false
   merge_requires_ci_and_owner_approval: true
-  commit_style: conventional-commits
 hosting:
-  provider: Render
-  service_type: Static Site
-  service_name_intended: usha-construction-architect
-  workspace: "Er.'s workspace"
-  repository: "sanjeevicivil66-chatGPT/Usha.Construction"
-  build_command: ""
-  publish_directory: "."
-  auto_deploy_branch: main
-  auto_deploy_intended: true
-  service_id: "srv-dc07sdd6e07s73bu49og"
-  public_url: "https://usha-construction-architect.onrender.com"
-  github_connector_status: "connected"
-  service_creation_status: "created"
-  live_url_verified: true
+  public_site_provider: Render
+  public_site_service_type: Static Site
+  public_site_service_id: "srv-dc07sdd6e07s73bu49og"
+  public_site_url: "https://usha-construction-architect.onrender.com"
+  public_site_auto_deploy_branch: main
+  api_status: source-only-not-deployed
+  api_hosting_requires_owner_approval: true
+  persistent_storage_requires_owner_approval: true

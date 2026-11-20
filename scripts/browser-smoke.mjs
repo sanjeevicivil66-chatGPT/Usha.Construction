@@ -38,7 +38,10 @@ try {
     }
     await page.locator('#contact').scrollIntoViewIfNeeded();
     await page.screenshot({path:path.join(out,'contact-'+width+'.png'),fullPage:false});
-    await page.locator('input[name="service"][value="New house construction"]').check();
+    const serviceLabel=page.locator('label[for="s1"]');
+    await serviceLabel.evaluate(el=>el.scrollIntoView({block:'center',inline:'nearest',behavior:'instant'}));
+    await serviceLabel.click();
+    if(!(await page.locator('#s1').isChecked()))failures.push(width+' service option did not become selected');
     await page.locator('#nextStep').click();
     if(!(await page.locator('.wizard-step[data-step="2"]').evaluate(el=>el.classList.contains('active'))))failures.push(width+' wizard did not advance');
     await page.locator('#prevStep').click();

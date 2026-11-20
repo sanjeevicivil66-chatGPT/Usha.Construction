@@ -8,7 +8,9 @@ Applies to: `index.html`, `assets/**`, and website-facing static content.
 - Treat rates, contact details, package inclusions and company imagery as owner-controlled content.
 - Use semantic elements, accessible labels, keyboard-operable controls, visible focus and responsive layouts.
 - Do not use untrusted strings with unsafe HTML insertion. Prefer safe text APIs.
-- The enquiry form currently opens a pre-filled WhatsApp message; do not describe it as a server-backed submission or lead store.
+- The guided enquiry flow currently opens a pre-filled WhatsApp message; do not describe it as a server-backed submission or lead store.
+- Respect `prefers-reduced-motion` for scroll reveals and animated elements. Keep mobile navigation keyboard-operable and the enquiry journey usable without animation.
+- Use the owner-provided logo artwork in `assets/usha-logo.svg`; do not replace it with a generic wordmark.
 - Verify mobile and desktop behavior, anchors, external links, asset paths and browser console errors.
 - Run `python scripts/validate_site.py` and inspect the actual GitHub Actions result.
 - If an implementation change alters content, file structure, runtime, or release behavior, update `index.yaml` and the relevant docs in the same PR.

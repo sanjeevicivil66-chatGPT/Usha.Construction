@@ -38,7 +38,7 @@ files:
   - path: index.yaml
     purpose: "Machine-readable project inventory, schema and hosting configuration"
   - path: assets/usha-logo.svg
-    purpose: "Owner-provided USHA logo artwork embedded in a responsive SVG wrapper"
+    purpose: "Owner-provided USHA logo, cropped to the USHA mark and Construction & Architects line"
   - path: .github/workflows/ci.yml
     purpose: "Pull request and main-branch static site validation"
   - path: .github/instructions/website.instructions.md

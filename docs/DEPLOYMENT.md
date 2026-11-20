@@ -15,25 +15,26 @@
 
 ## Current verified state (2026-11-20)
 
-- GitHub repository exists and contains the website work on `feature/website-v2`.
-- Pull request #1 is open and has not been confirmed merged.
+- GitHub repository exists and contains the website work on `main` and `feature/website-v2`.
+- Pull request #1 (initial website) is merged. Pull request #2 (repository contract and documentation) is open and not merged.
 - The Render workspace selected is **Er.'s workspace**.
+- The owner confirms Render is already wired to the GitHub Render connector. Do not ask the owner to connect GitHub again unless a fresh check shows that the integration is disconnected.
 - The Render workspace service listing returned no existing services.
-- Render site creation was attempted, but Render reported that the repository was unfetchable. No service was created by that attempt.
-- The likely prerequisite is granting Render's Git provider integration access to the private GitHub repository. Confirm the integration and repository permission in Render before retrying.
-- Therefore, production hosting, auto-deploy, first deployment, and public URL are **not yet verified**.
+- Static Site creation was attempted through the Render connector, but Render returned: repository URL was invalid or unfetchable. Retrying with and without the `.git` suffix produced the same result.
+- This is an unresolved repository-fetch/create-service error, not proof that the GitHub connector is disconnected. The exact cause has not been established.
+- No Static Site was created by those attempts. Production branch linking, auto-deploy, first deployment, and public URL are therefore **not yet verified**.
 
 This status section must be updated only after checking the actual Render service and GitHub PR/deploy state. Do not infer success from configuration intent.
 
-## Setup procedure
+## Next diagnostic steps
 
-1. Connect the GitHub account to Render.
-2. Grant Render access to the private repository `sanjeevicivil66-chatGPT/Usha.Construction`.
-3. Create a Static Site in **Er.'s workspace**.
-4. Select repository `sanjeevicivil66-chatGPT/Usha.Construction` and branch `main`.
-5. Set build command to empty and publish directory to `.`.
-6. Enable automatic deployment for branch updates.
-7. Create the service and wait for its first deploy.
+1. Keep the existing Render-GitHub connector wiring; do not repeat account connection as the default remedy.
+2. Re-check the exact repository identifier and that the connected Git provider exposes this private repository to Render's service-creation flow.
+3. If the repository is visible in Render's dashboard but API creation still rejects it, create the Static Site from the Render dashboard or inspect the connector/API error with Render support. Do not claim the site exists until the service appears in the workspace.
+4. Once the repository is selectable, create a Static Site in **Er.'s workspace**.
+5. Select repository `sanjeevicivil66-chatGPT/Usha.Construction` and branch `main`.
+6. Set build command to empty and publish directory to `.`.
+7. Enable automatic deployment for branch updates.
 8. Confirm the linked repository, production branch, auto-deploy setting, latest deploy status and public `onrender.com` URL.
 9. Open the public URL and test homepage, logo, images, links, responsive layout and WhatsApp enquiry flow.
 10. Record the actual service name, public URL, connection status, and verification date here. Never store credentials or deploy-hook secrets in this file.
@@ -41,7 +42,7 @@ This status section must be updated only after checking the actual Render servic
 ## Release behavior
 
 - Merge a reviewed, CI-passing PR into `main`.
-- Render's native auto-deploy should detect the main-branch update and start a deployment.
+- Render's native auto-deploy should detect the main-branch update and start a deployment after the service is connected and configured.
 - Inspect the deployment in Render. A Git push is not proof that deployment succeeded.
 - Verify the public website after deploy completion.
 - If deployment fails, inspect Render build/deploy logs and events, fix the issue on a new branch, and release through a PR.

@@ -57,9 +57,11 @@ else:
             errors.append(f"Broken in-page link: {href}")
     if parser.forms < 1:
         errors.append("No enquiry form found")
-    for required in ("leadWizard", "fullName", "mobile", "service"):
+    for required in ("leadWizard", "fullName", "mobile"):
         if required not in parser.ids:
             errors.append(f"Missing required enquiry element: #{required}")
+    if 'name="service"' not in source:
+        errors.append("Missing service selection in guided enquiry")
     if "wa.me/" not in source:
         errors.append("WhatsApp enquiry destination not found")
     if "data-step=\"1\"" not in source or "data-step=\"2\"" not in source:

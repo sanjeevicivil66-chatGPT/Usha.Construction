@@ -42,52 +42,55 @@ Never silently change the project contract. When a rule, tool, stack, folder pur
 - The WhatsApp enquiry form currently opens a pre-filled message. It is not a server-side lead database. Never describe it as storing or submitting leads to a backend.
 - Keep contact and personal information to the minimum needed for the website. Never commit private customer information.
 
-## 4. Required work sequence
+## 4. Mandatory issue-first delivery lifecycle
 
-For every non-trivial task:
+For every defect, feature, maintenance task, or workflow change beyond a trivial typo:
 
-1. **Understand:** read this file, relevant scoped instructions, README, inventory, and affected source files.
-2. **Inspect:** check the current branch, working context, existing implementation, open pull requests, and relevant CI results before editing.
-3. **Plan:** state the intended outcome, affected files, risks, and how it will be verified. Split unrelated work into separate changes.
-4. **Implement:** make the smallest coherent change. Preserve existing working behavior unless the task explicitly changes it.
-5. **Validate:** run the documented checks and add/update tests for new behavior. Do not claim a check passed unless it was actually run and its result inspected.
-6. **Document:** update README, index.yaml, relevant docs, scoped instructions, and instruction changelog whenever their facts or rules change.
-7. **Review:** inspect the complete diff for correctness, accessibility, mobile layout, security, broken links, stale content, accidental secrets, and unrelated edits.
-8. **Commit:** create focused commits with conventional prefixes and meaningful messages.
-9. **Pull request:** open or update a PR to `main`, summarize changes, tests, risks, screenshots when useful, and owner decisions required.
-10. **Release:** merge only after required checks pass and the owner approves. Confirm Render deployment and the public site before reporting success.
+1. **Inspect first:** read `AGENTS.md`, scoped instructions, README, inventory and affected source. Check open issues, PRs, branches, latest `main`, CI state and Render state. Search for an existing issue before creating another.
+2. **Issue before edits:** if no open issue already covers the task, create a GitHub issue before changing any repository file. Include reproducible problem/evidence, expected result, acceptance criteria, scope/non-goals, risk and exact verification plan. Link the source screenshots or logs when available. Do not create duplicate issues; cross-link duplicates and close only with explanation.
+3. **Branch from current main:** create `fix/issue-<number>-<slug>`, `feature/issue-<number>-<slug>`, or `chore/issue-<number>-<slug>` from the latest `main`. Never work directly on `main` or reuse a stale unrelated branch.
+4. **Implement narrowly:** change only the issue scope. Use conventional commits such as `fix: ... (#123)` and reference the issue in commits and PR. Keep secrets and customer data out of Git.
+5. **Automated checks:** run `python scripts/validate_site.py` and all CI jobs. CI must be green for the exact latest PR head SHA before requesting review.
+6. **Real browser verification before review:** for UI changes use a real headless browser (Playwright in CI). Test 360, 390, 430, 768 and 1280 CSS-pixel viewports; take screenshots of affected sections; inspect screenshots rather than merely generating them; test responsive menu, links, CTAs, enquiry steps and WhatsApp URL (never send a message), form validation, FAQ interaction, keyboard/focus, reduced-motion, asset requests, horizontal overflow, console errors and failed requests. Record browser, viewport, and actual result.
+7. **Stop on blockers:** if browser tooling is unavailable, screenshots show defects, any check fails, or an acceptance criterion is unmet, create/update a GitHub issue with evidence and report the blocker in chat. Do not describe the change as browser-tested, request a final review, or merge it. A draft PR is allowed only to share WIP explicitly labelled unverified.
+8. **Review the diff:** inspect every changed file, generated assets, responsive screenshots and test artifacts. Never use a cropped logo or image before visual inspection at all target viewports.
+9. **PR only when ready:** PR must include `Closes #<issue>`, scope, exact checks/outputs, browser matrix, screenshot evidence, known limitations and owner decisions. Request collaborators/reviewers only after checks pass and visual blockers are resolved.
+10. **Owner approval and release:** merge only after explicit owner authorization and required checks/reviews pass. Verify merge commit on `main`, Render deploy status, public URL and a live smoke test.
+11. **Report accurately:** distinguish issue, branch, commit, PR, automated results, browser results, review/merge status, deploy status and unresolved risks. No unverified success claims.
 
 For a tiny typo or documentation-only change, use proportionate checks, but still review the diff and record any contract changes.
 
 ## 5. Git, commits, and pull requests
 
 - `main` is the production branch. Do not do feature work directly on `main`.
-- Use `feature/<short-name>`, `fix/<short-name>`, `docs/<short-name>`, or `chore/<short-name>`.
+- Use issue-linked branches: `feature/issue-<number>-<slug>`, `fix/issue-<number>-<slug>`, `docs/issue-<number>-<slug>`, or `chore/issue-<number>-<slug>`. Only tiny, non-triviality-exempt edits may omit an issue.
+- Every PR must link an existing issue using `Closes #<number>` or `Refs #<number>`. Create the issue before implementing if none exists.
 - Keep each branch focused on one outcome. Avoid unrelated formatting or generated-file churn.
 - Use Conventional Commit prefixes: `feat:`, `fix:`, `docs:`, `chore:`, `test:`, `refactor:`, `perf:`, `ci:`.
 - Commit messages must describe the actual change; never claim tests passed if they were not run.
 - Do not rewrite shared branch history or force-push unless the owner explicitly authorizes it and the impact is understood.
 - Every production change must go through a pull request. PRs must explain purpose, scope, testing, risks, screenshots where useful, and any owner approval needed.
-- Merge only when CI is green, review findings are resolved, and owner approval is present.
+- Merge only when CI is green for the exact latest PR head, browser evidence is reviewed for UI work, review findings are resolved, and owner approval is present.
 - Prefer squash merging for a clean production history unless the owner chooses another strategy.
 - Never merge a PR merely because it is open, created, or marked mergeable. Confirm its latest checks and review state first.
 - After merge, confirm the resulting commit is on `main`; then check the deployment status.
 
 ## 6. Quality gates
 
-Before a PR is ready:
-- Run `python scripts/validate_site.py`.
+Before requesting PR review:
+- Confirm a GitHub issue existed before implementation.
+- Run `python scripts/validate_site.py` and inspect the result.
 - Confirm the CI workflow is valid and its latest applicable run is green.
 - Check semantic HTML, document title, language, viewport, heading structure, labels, keyboard access, focus visibility, contrast, and meaningful image alternative text.
-- Check mobile and desktop layouts, navigation, internal anchors, external links, and overflow.
+- Check mobile and desktop layouts, navigation, internal anchors, external links, and overflow in a real browser. UI changes require Playwright screenshots at 360, 390, 430, 768 and 1280 CSS-pixel widths, with visual inspection of the screenshots.
 - Test required enquiry fields and the WhatsApp message/URL without sending a message.
-- Confirm assets load, paths are case-correct, and no console errors are introduced.
+- Confirm assets load, paths are case-correct, and no console errors or failed network requests are introduced. Browser screenshots must show the correct entire logo/brand mark, not an unchecked crop.
 - Check performance: right-size images, avoid unnecessary scripts, and do not add heavy dependencies without justification.
 - Check security: no credentials, tokens, secrets, unsafe inline data, or untrusted HTML injection.
 - Check factual accuracy of business details and package claims.
 - Update or add automated validation when a repeatable failure mode is discovered.
 
-CI must be treated as a required PR gate. If repository rules cannot currently enforce it, document that limitation and ask the owner to enable branch protection/rulesets in GitHub. Never imply branch protection is active until verified.
+CI must include static validation and browser smoke tests for responsive UI interactions. CI must be treated as a required PR gate. If repository rules cannot currently enforce it, document that limitation and ask the owner to enable branch protection/rulesets in GitHub. Never imply branch protection is active until verified.
 
 ## 7. Architecture and dependency policy
 

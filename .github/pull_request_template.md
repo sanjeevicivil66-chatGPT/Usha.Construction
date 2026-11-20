@@ -1,35 +1,39 @@
 ## Linked issue
 Closes #
 
-## Purpose and acceptance criteria
-<!-- Link problem statement and measurable acceptance criteria from issue. -->
+## Purpose and phase
+<!-- State the exact issue phase and measurable acceptance criteria. -->
 
 ## Scope
-<!-- Only changes required by the issue. -->
+<!-- List the implementation and explicit non-goals. -->
 
 ## Automated validation
-- [ ] `python scripts/validate_site.py` (paste actual result)
-- [ ] GitHub Actions static validation passed for exact latest PR head SHA
-- [ ] Playwright Chromium browser suite passed (for UI changes)
+- [ ] Public website validator (paste actual result)
+- [ ] API tests (paste actual result)
+- [ ] API typecheck (paste actual result)
+- [ ] API build (paste actual result)
+- [ ] GitHub Actions green for exact head SHA
 
-## Browser evidence (UI changes)
-- [ ] Tested 360 / 390 / 430 / 768 / 1280 CSS-pixel widths
-- [ ] Screenshot artifacts reviewed (not just generated)
-- [ ] Header/logo, contact card, footer and navigation visually correct
-- [ ] Enquiry flow tested; WhatsApp URL prepared but not sent
-- [ ] Keyboard/focus and reduced-motion checked
-- [ ] No console errors, failed asset requests or horizontal overflow
-- Browser/version:
-- Screenshot artifact/link:
-- Actual findings:
+## Browser verification
+- [ ] Manually tested using connected interactive browser
+- [ ] Tested 360 / 390 / 430 / 768 / 1280 CSS-pixel widths where UI changed
+- Browser and version:
+- Actual interactions and findings:
+- Screenshots/evidence:
+- If unavailable, explain blocker and keep this PR draft/unverified.
 
-## Review
-- [ ] Full diff reviewed
-- [ ] No unresolved blockers; remaining issues linked here
-- [ ] No secrets or private customer data
-- [ ] README, index.yaml and docs updated
-- [ ] Owner approval needed for merge has been obtained
+## Security and data
+- [ ] No secrets, credentials, tokens or customer data
+- [ ] Authentication, authorization, CSRF, rate limits and validation reviewed where applicable
+- [ ] Financial writes use transactions and integer minor units
+- [ ] SMTP secrets remain server-side and masked
 
-## Release
-- [ ] Render main deployment verified after merge (post-merge)
-- [ ] Public URL smoke-tested (post-merge)
+## Documentation
+- [ ] README and index.yaml updated
+- [ ] Architecture/deployment/workflow docs updated
+- [ ] AGENTS.md and instruction changelog updated when rules changed
+
+## Release and owner decisions
+- [ ] No unapproved hosting resources or charges
+- [ ] Owner approval obtained before merge
+- [ ] Deployment and rollback plan documented

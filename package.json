@@ -1,0 +1,1 @@
+{"name":"usha-construction-platform","private":true,"version":"0.1.0","workspaces":["apps/api"],"scripts":{"dev:api":"npm --workspace @usha/api run dev","build:api":"npm --workspace @usha/api run build","typecheck":"npm --workspace @usha/api run typecheck","test":"npm --workspace @usha/api test"},"engines":{"node":">=22"}}

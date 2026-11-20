@@ -15,29 +15,23 @@
 
 ## Current verified state (2026-11-20)
 
-- GitHub repository exists and contains the website work on `main` and `feature/website-v2`.
-- Pull request #1 (initial website) is merged. Pull request #2 (repository contract and documentation) is open and not merged.
-- The Render workspace selected is **Er.'s workspace**.
-- The owner confirms Render is already wired to the GitHub Render connector. Do not ask the owner to connect GitHub again unless a fresh check shows that the integration is disconnected.
-- The Render workspace service listing returned no existing services.
-- Static Site creation was attempted through the Render connector, but Render returned: repository URL was invalid or unfetchable. Retrying with and without the `.git` suffix produced the same result.
-- This is an unresolved repository-fetch/create-service error, not proof that the GitHub connector is disconnected. The exact cause has not been established.
-- No Static Site was created by those attempts. Production branch linking, auto-deploy, first deployment, and public URL are therefore **not yet verified**.
+- Render workspace: **Er.'s workspace**.
+- GitHub repository: `sanjeevicivil66-chatGPT/Usha.Construction`.
+- Render Static Site: `usha-construction-architect` (service ID `srv-dc07sdd6e07s73bu49og`).
+- Production branch: `main`.
+- Build command: empty; publish directory: `.`.
+- Native auto-deploy: enabled for commits to `main`.
+- Public URL: https://usha-construction-architect.onrender.com
+- Initial deployment of commit `a5fa7354f67e6be8da638fdf0759f42a908ef09f` was reported `live` by Render.
+- The repository is public per owner confirmation. The Render-GitHub connector remains connected.
 
-This status section must be updated only after checking the actual Render service and GitHub PR/deploy state. Do not infer success from configuration intent.
+This site status must be rechecked against Render before future release reports. A successful deployment record is not a substitute for testing the public page and enquiry path in a browser.
 
-## Next diagnostic steps
+## Website experience notes
 
-1. Keep the existing Render-GitHub connector wiring; do not repeat account connection as the default remedy.
-2. Re-check the exact repository identifier and that the connected Git provider exposes this private repository to Render's service-creation flow.
-3. If the repository is visible in Render's dashboard but API creation still rejects it, create the Static Site from the Render dashboard or inspect the connector/API error with Render support. Do not claim the site exists until the service appears in the workspace.
-4. Once the repository is selectable, create a Static Site in **Er.'s workspace**.
-5. Select repository `sanjeevicivil66-chatGPT/Usha.Construction` and branch `main`.
-6. Set build command to empty and publish directory to `.`.
-7. Enable automatic deployment for branch updates.
-8. Confirm the linked repository, production branch, auto-deploy setting, latest deploy status and public `onrender.com` URL.
-9. Open the public URL and test homepage, logo, images, links, responsive layout and WhatsApp enquiry flow.
-10. Record the actual service name, public URL, connection status, and verification date here. Never store credentials or deploy-hook secrets in this file.
+- The website remains a static HTML/CSS/vanilla JavaScript site with no build step.
+- The guided enquiry flow opens a prefilled WhatsApp message; it does not persist leads. Any CRM, automated follow-up or server-side lead capture requires an owner-approved backend and privacy review.
+- The owner-provided logo is stored as `assets/usha-logo.svg` with embedded raster artwork.
 
 ## Release behavior
 

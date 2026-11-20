@@ -1,0 +1,64 @@
+project:
+  name: "USHA CONSTRUCTION & ARCHITECT"
+  slug: usha-construction-architect-website
+  type: static-website
+  language: en
+  locale: en-IN
+  timezone: Asia/Kolkata
+  location: "Chithod, Erode, Tamil Nadu, India"
+runtime:
+  stack: [HTML5, CSS3, vanilla-javascript]
+  build_command: ""
+  publish_directory: "."
+entrypoints:
+  homepage: index.html
+folders:
+  assets:
+    purpose: "Approved brand assets"
+files:
+  - path: index.html
+    purpose: "Responsive landing page, services, packages, gallery and WhatsApp enquiry"
+  - path: AGENTS.md
+    purpose: "Engineering, Git and deployment instructions"
+  - path: index.yaml
+    purpose: "Project inventory and content schema"
+  - path: assets/usha-logo.svg
+    purpose: "Scalable USHA company wordmark"
+content_schema:
+  business_name: "USHA CONSTRUCTION & ARCHITECT"
+  address: "No.12, Kongampalayam, SVN School Near, Chithod, Erode, Tamil Nadu, India"
+  phone: "+91 90038 03601"
+  instagram: "@usha_construction_architect"
+  services:
+    - "2D Floor Plan"
+    - "3D Elevation"
+    - "Building Construction"
+    - "Renovation Work"
+    - "Estimation & Quantity"
+    - "Contracting & Site Visit"
+  package_rates_inr_per_sqft:
+    Basic: 2050
+    Premium: 2350
+    Elite: 2550
+    Luxury: 2850
+  notes:
+    - "Rates are indicative and require owner confirmation before publication."
+    - "Contact details require owner verification before production release."
+    - "Gallery images are illustrative references, not verified completed projects."
+    - "Enquiry form opens WhatsApp; it does not store submissions on a server."
+quality:
+  responsive: true
+  semantic_html: true
+  accessible_form_labels: true
+  external_form_backend: false
+version_control:
+  default_branch: main
+  feature_branch: "feature/website-v2"
+  pull_request_required: true
+  direct_main_commits: false
+hosting:
+  provider: Render
+  service_type: Static Site
+  build_command: ""
+  publish_directory: "."
+  auto_deploy_branch: main

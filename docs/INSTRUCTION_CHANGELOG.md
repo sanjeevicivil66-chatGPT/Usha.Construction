@@ -1,5 +1,14 @@
 # Instruction and workflow changelog
 
+## 2026-11-20 — Issue-first Git workflow and browser-verification gate
+
+- Require a GitHub issue before substantive implementation, an issue-number branch from latest main, linked PRs/commits, and owner-approved release.
+- Require real Playwright Chromium coverage and visual inspection of screenshots across 360/390/430/768/1280 CSS-pixel viewports before requesting review on UI changes.
+- Make CI publish browser screenshot artifacts and check responsive interactions, assets, console/network errors and enquiry flow.
+- Record defects as GitHub issues before attempting fixes; block review/merge when browser tooling or acceptance evidence is missing.
+- Rationale: prevent repeated visual regressions such as the incorrect logo crop and ensure every change is traceable and testable.
+
+
 ## 2026-11-20 — Refine mobile logo and footer branding
 
 - Cropped the supplied logo artwork to retain the USHA mark and Construction & Architects line while removing the small tagline beneath it.

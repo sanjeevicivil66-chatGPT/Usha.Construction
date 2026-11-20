@@ -108,5 +108,6 @@ hosting:
   publish_directory: "."
   auto_deploy_branch: main
   auto_deploy_intended: true
-  connection_status: "pending: Render could not fetch the private GitHub repository"
+  github_connector_status: "connected per owner confirmation"
+  service_creation_status: "blocked: Render API reports repository invalid or unfetchable"
   live_url_verified: false

@@ -20,8 +20,8 @@ Responsive static website for **USHA CONSTRUCTION & ARCHITECT**, Chithod, Erode,
 
 ## Main files
 
-- `index.html` — landing page, services, packages, gallery and WhatsApp enquiry.
-- `assets/usha-logo.svg` — scalable company wordmark (confirm approved final artwork before production launch).
+- `index.html` — premium responsive landing page, services, indicative packages, inspiration gallery, FAQs and guided WhatsApp enquiry.
+- `assets/usha-logo.svg` — owner-provided USHA logo artwork in an SVG wrapper.
 - `scripts/validate_site.py` — dependency-free static site validation.
 - `.github/workflows/ci.yml` — GitHub Actions validation workflow.
 - `.github/instructions/website.instructions.md` — scoped website implementation rules.
@@ -52,4 +52,4 @@ python scripts/validate_site.py
 - Confirm the official logo artwork.
 - Test WhatsApp enquiry behavior on mobile and desktop.
 
-The enquiry form opens WhatsApp with a pre-filled message; it does not store leads on a server.
+The guided enquiry flow opens WhatsApp with a pre-filled message for the visitor to review and send. It does not store leads on a server.

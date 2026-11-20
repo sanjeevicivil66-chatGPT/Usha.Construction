@@ -1,5 +1,12 @@
 # Instruction and workflow changelog
 
+## 2026-11-20 — Refine mobile logo and footer branding
+
+- Cropped the supplied logo artwork to retain the USHA mark and Construction & Architects line while removing the small tagline beneath it.
+- Reduced the header logo width on mobile and applied a multiply blend treatment so its white image background blends into the light header.
+- Replaced the footer logo image with a text-only company wordmark.
+- Rationale: improve mobile header proportions, remove unwanted tagline content and simplify the footer brand treatment.
+
 ## 2026-11-20 — Upgrade the public website experience
 
 - Replaced the temporary logo artwork with the logo image supplied by the owner, wrapped in SVG for consistent sizing.

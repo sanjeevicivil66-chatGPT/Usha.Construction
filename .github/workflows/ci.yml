@@ -45,7 +45,6 @@ jobs:
       - name: Run responsive UI checks and capture screenshots
         run: node scripts/browser-smoke.mjs
       - name: Upload browser screenshots
-      - name: Upload browser screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:

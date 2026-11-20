@@ -47,6 +47,8 @@ files:
     purpose: "Required PR scope, validation, documentation and release checklist"
   - path: scripts/validate_site.py
     purpose: "Dependency-free checks for HTML metadata, assets and enquiry funnel"
+  - path: scripts/browser-smoke.mjs
+    purpose: "Playwright Chromium responsive screenshots and interaction smoke tests"
   - path: docs/PROJECT_WORKFLOW.md
     purpose: "End-to-end contribution, commit, PR, review and merge process"
   - path: docs/DEPLOYMENT.md
@@ -89,6 +91,8 @@ quality:
   external_form_backend: false
   validator: "python scripts/validate_site.py"
   ci_workflow: ".github/workflows/ci.yml"
+  browser_tests: "Playwright Chromium responsive smoke tests at 360, 390, 430, 768 and 1280 CSS px"
+  screenshot_artifacts: "website-browser-screenshots"
 version_control:
   default_branch: main
   feature_branch_convention: "feature/<short-name>"

@@ -38,6 +38,11 @@ python scripts/validate_site.py
 
 ## Git and release policy
 
+- Start by searching GitHub issues; create an issue before substantive changes when no matching issue exists.
+- Work on an issue-number branch from latest `main`; link commits and PRs back to that issue.
+- For UI changes, inspect Playwright screenshots at 360, 390, 430, 768 and 1280 px before requesting review.
+- See [the issue-first workflow](docs/PROJECT_WORKFLOW.md) and [AGENTS.md](AGENTS.md) for mandatory gates.
+
 - Use focused branches and conventional commits.
 - Production changes go through a pull request to `main`.
 - Merge only after checks pass and the owner approves.

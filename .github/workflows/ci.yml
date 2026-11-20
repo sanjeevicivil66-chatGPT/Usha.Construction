@@ -16,16 +16,39 @@ concurrency:
 
 jobs:
   validate:
-    name: Validate static website
+    name: Static website validation
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
       - name: Validate HTML, assets and enquiry funnel
         run: python scripts/validate_site.py
+
+  browser:
+    name: Responsive browser smoke tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install browser test dependencies
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+      - name: Run responsive UI checks and capture screenshots
+        run: node scripts/browser-smoke.mjs
+      - name: Upload browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-browser-screenshots
+          path: artifacts/browser/
+          if-no-files-found: warn
+          retention-days: 14

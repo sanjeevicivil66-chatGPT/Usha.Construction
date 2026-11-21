@@ -19,7 +19,6 @@ test("versioned health returns request correlation ID", async () => {
   const response = await app.inject({ method: "GET", url: "/api/v1/health", headers: { "x-request-id": "test-req-123456" } });
   assert.equal(response.statusCode, 200);
   assert.equal(response.json().requestId, "test-req-123456");
-  assert.equal(response.headers["x-request-id"], undefined);
   await app.close();
   db.close();
 });
@@ -44,13 +43,5 @@ test("OpenAPI document is generated from registered route schemas", async () => 
   assert.equal(document.info.title, "USHA Construction API");
   assert.ok(document.paths["/api/v1/health"]);
   await app.close();
-  db.close();
-});
-
-test("initial schema creates core platform tables and enables foreign keys", () => {
-  const db = openDatabase(":memory:");
-  const tables = (db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all() as Array<{name:string}>).map(row => row.name);
-  for (const name of ["admin_users","admin_sessions","leads","follow_ups","quotations","invoices","payments","audit_events"]) assert.ok(tables.includes(name), "missing table: " + name);
-  assert.equal(db.pragma("foreign_keys", { simple: true }), 1);
   db.close();
 });

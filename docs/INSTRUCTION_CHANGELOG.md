@@ -1,5 +1,13 @@
 # Instruction and workflow changelog
 
+## 2026-11-21 — Issue #17 versioned SQLite migrations
+
+- Replaced the single startup SQL string with ordered, SHA-256-checksummed forward migrations.
+- Added safe recognition and upgrade of the previously deployed schema version 1 without dropping existing records.
+- Added normalized customer search fields, optimistic version columns, activity events, idempotency keys, immutable quote/invoice snapshots, outbox attempts and append-only audit constraints.
+- Added migration replay, checksum drift and legacy-upgrade tests.
+- No destructive rollback is automated; backup and restore remain explicit operational procedures.
+
 ## 2026-11-21 — Issue #16 modular API and shared contracts
 
 - Added a shared contracts workspace with Zod runtime schemas and inferred TypeScript types.

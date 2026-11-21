@@ -10,7 +10,7 @@ project:
 runtime:
   public_site: HTML5/CSS3/vanilla-javascript
   api: Node.js 22, TypeScript, Fastify
-  database: SQLite transactional persistence with JSON-shaped records
+  database: SQLite transactional persistence with ordered SHA-256-checksummed migrations
   contracts: "@usha/contracts, Zod runtime schemas and inferred TypeScript types"
   admin_ui: planned component-based TypeScript frontend
   package_manager: npm workspaces
@@ -49,7 +49,11 @@ files:
   - path: apps/api/src/lib/http-error.ts
     purpose: "Typed HTTP domain error"
   - path: apps/api/src/db.ts
-    purpose: "SQLite connection and initial schema (migration hardening is issue #17)"
+    purpose: "SQLite connection and migration bootstrap"
+  - path: apps/api/src/db/migrations.ts
+    purpose: "Ordered SQL migrations, SHA-256 checksums and legacy upgrade logic"
+  - path: apps/api/src/db.test.ts
+    purpose: "Migration replay, checksum drift, legacy upgrade and append-only tests"
   - path: packages/contracts/package.json
     purpose: "Shared Zod contracts workspace"
   - path: packages/contracts/src/index.ts

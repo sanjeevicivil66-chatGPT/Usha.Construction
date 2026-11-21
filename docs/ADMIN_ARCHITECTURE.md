@@ -3,8 +3,8 @@
 ## Delivery phases
 
 1. Backend runtime and initial SQLite foundation (merged PR #13).
-2. Modular TypeScript API, shared Zod contracts and generated OpenAPI (issue #16).
-3. Ordered, checksum-verified SQLite migrations and normalized transactional records (issue #17).
+2. Modular TypeScript API, shared Zod contracts and generated OpenAPI (PR #33; CI passed, pending owner merge).
+3. Ordered, checksum-verified SQLite migrations and normalized transactional records (this issue/PR).
 4. Owner-only authentication, secure sessions and first-admin provisioning (issue #18).
 5. Consented public enquiry capture and WhatsApp handoff (issue #19).
 6. Lead/customer/project CRM, stages, follow-ups and activity history (issues #20–22).
@@ -26,9 +26,9 @@
 
 ## Persistence and integrity
 
-SQLite is the transactional store. CRM, quotations, invoices, payments, follow-ups, sessions and audit events are relationally linked. Domain payloads are JSON-shaped and SQLite checks JSON validity. Money is stored as integer minor units. Ordered migrations, checksums, optimistic concurrency and normalized searchable columns are tracked in issue #17 and are not yet implemented.
+SQLite is the transactional store. Migration versions 1 and 2 are ordered, forward-only and SHA-256 checksummed. Existing version-1 databases are upgraded in place, preserving their rows; the legacy baseline is recognized and validated before version 2 applies. Future migrations must be appended, never edited after release. Checksum drift and databases newer than the application fail closed. Audit events, quote versions and invoice item snapshots are append-only/immutable.
 
-The current Render service is a Static Site and cannot run this API. A separate backend service and durable disk require explicit owner approval before provisioning; no backend resources have been created.
+CRM, quotations, invoices, payments, follow-ups, sessions and audit events are relationally linked. Flexible domain payloads remain JSON-shaped with SQLite JSON validity checks. Normalized customer email/phone fields support search but are not unique because multiple customers may legitimately share contact details. Money remains integer minor units. Production DB must live on approved durable persistent storage.
 
 ## Security boundaries
 
@@ -36,7 +36,7 @@ Public visitors do not need accounts. Admin routes are not exposed until authent
 
 ## API conventions
 
-Business routes use /api/v1. Shared contracts are defined in packages/contracts with Zod and are converted to JSON Schema for Fastify/OpenAPI. The OpenAPI document is served at GET /api/v1/openapi.json. Errors use { error: { code, message, requestId } }. Pagination is bounded (default 25, maximum 100); use UTC timestamps, idempotency keys and optimistic concurrency as domain modules are implemented.
+Business routes use /api/v1. Shared contracts are defined in packages/contracts with Zod and converted to JSON Schema for Fastify/OpenAPI. The OpenAPI document is served at GET /api/v1/openapi.json. Errors use { error: { code, message, requestId } }. Pagination is bounded (default 25, maximum 100); use UTC timestamps, idempotency keys and optimistic concurrency as domain modules are implemented.
 
 ## Local development
 

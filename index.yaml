@@ -19,6 +19,7 @@ entrypoints:
   api_server: apps/api/src/server.ts
   api_openapi: GET /api/v1/openapi.json
   owner_provisioning: npm run provision:owner
+  public_enquiry_api: POST /api/v1/public/enquiries
 folders:
   apps/api: "TypeScript Fastify API, domain modules, configuration, persistence and tests"
   apps/admin: "Planned component-based owner admin frontend"
@@ -41,10 +42,14 @@ files:
     purpose: "Fastify setup, security middleware, module registration and error handling"
   - path: apps/api/src/modules/auth/routes.ts
     purpose: "Owner login, sessions, CSRF, logout and password change"
+  - path: apps/api/src/modules/enquiries/routes.ts
+    purpose: "Consent-based public enquiry capture and idempotent lead persistence"
   - path: apps/api/src/cli/provision-owner.ts
     purpose: "One-time private owner account provisioning"
   - path: apps/api/src/auth.test.ts
     purpose: "Owner authentication, origin, cookie, CSRF and revocation tests"
+  - path: apps/api/src/enquiries.test.ts
+    purpose: "Enquiry persistence, retry, consent, spam and validation tests"
   - path: apps/api/src/db.ts
     purpose: "SQLite connection and migration bootstrap"
   - path: apps/api/src/db/migrations.ts

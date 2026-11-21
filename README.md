@@ -4,18 +4,18 @@ Responsive public website and owner-only admin platform for USHA CONSTRUCTION & 
 
 ## Public website
 
-The existing public site remains at the repository root in index.html and is deployed as a Render Static Site. Its enquiry flow prepares a WhatsApp message; it does not store leads server-side.
+The existing public site remains at the repository root in index.html and is deployed as a Render Static Site. Its enquiry form still hands off to WhatsApp; it is not yet connected to the new public enquiry API.
 
 ## Admin platform
 
-- apps/api: TypeScript/Fastify API, SQLite persistence, versioned migrations and owner-auth endpoints.
+- apps/api: TypeScript/Fastify API, SQLite persistence, versioned migrations, owner-auth endpoints and public enquiry capture.
 - packages/contracts: shared Zod schemas, inferred TypeScript types and generated JSON Schema/OpenAPI.
 - apps/admin: planned component-based admin frontend; not yet implemented.
 - content/blog and content/news: planned Markdown publishing content.
 - docs/ADMIN_ARCHITECTURE.md: phased admin delivery plan.
 - docs/api/README.md: API conventions and error/contract rules.
 
-Owner authentication API is implemented in source but is not deployed. No admin login page or admin URL is available yet. The existing Render Static Site cannot run the API. A separate backend service and durable database require explicit approval before provisioning or incurring charges.
+Owner authentication and public enquiry APIs are implemented in source but are not deployed. No admin login page or admin URL is available yet. The existing Render Static Site cannot run the API. A separate backend service and durable database require explicit approval before provisioning or incurring charges.
 
 ## One-time owner provisioning (only on an approved backend database)
 

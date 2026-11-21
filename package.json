@@ -1,1 +1,14 @@
-{"name":"usha-construction-platform","private":true,"version":"0.1.0","workspaces":["apps/api"],"scripts":{"dev:api":"npm --workspace @usha/api run dev","build:api":"npm --workspace @usha/api run build","typecheck":"npm --workspace @usha/api run typecheck","test":"npm --workspace @usha/api test"},"engines":{"node":">=22"}}
+{
+  "name": "usha-construction-platform",
+  "private": true,
+  "version": "0.2.0",
+  "workspaces": ["apps/api", "packages/contracts"],
+  "scripts": {
+    "build:contracts": "npm --workspace @usha/contracts run build",
+    "dev:api": "npm run build:contracts && npm --workspace @usha/api run dev",
+    "build:api": "npm run build:contracts && npm --workspace @usha/api run build",
+    "typecheck": "npm run build:contracts && npm --workspace @usha/api run typecheck",
+    "test": "npm run build:contracts && npm --workspace @usha/api test"
+  },
+  "engines": { "node": ">=22" }
+}

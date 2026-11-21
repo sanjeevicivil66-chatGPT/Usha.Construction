@@ -8,11 +8,12 @@ The existing public site remains at the repository root in index.html and is dep
 
 ## Admin platform
 
-- apps/api: TypeScript/Fastify API and SQLite persistence foundation (Phase 1).
+- apps/api: TypeScript/Fastify API and SQLite persistence foundation.
+- packages/contracts: shared Zod schemas and inferred TypeScript contracts.
 - apps/admin: planned component-based admin frontend; not yet implemented.
-- packages/contracts: planned shared versioned JSON Schemas.
 - content/blog and content/news: planned Markdown publishing content.
 - docs/ADMIN_ARCHITECTURE.md: phased implementation and security plan.
+- docs/api/README.md: API route, validation and error conventions.
 
 The API is not deployed and does not yet expose admin login or CRM workflows. The existing Render Static Site cannot run the API. A separate backend service and durable database require explicit approval before provisioning or incurring charges.
 
@@ -27,4 +28,4 @@ Requires Node.js 22+.
 5. npm run typecheck
 6. npm run build:api
 
-Read AGENTS.md, docs/PROJECT_WORKFLOW.md, docs/DEPLOYMENT.md and docs/ADMIN_ARCHITECTURE.md before changes. Never commit credentials, SMTP secrets, tokens, customer data or runtime databases. Do not share an admin URL until all requested features are complete and verified.
+Read AGENTS.md, docs/PROJECT_WORKFLOW.md, docs/DEPLOYMENT.md, docs/ADMIN_ARCHITECTURE.md and docs/api/README.md before changes. Never commit credentials, SMTP secrets, tokens, customer data or runtime databases.

@@ -40,14 +40,17 @@ export async function buildApp(options: { db: Database.Database; adminOrigin?: s
   });
 
   app.setErrorHandler((error, request, reply) => {
+    const candidate = error as { statusCode?: unknown; message?: unknown };
+    const candidateStatus = candidate.statusCode;
     const statusCode = error instanceof HttpError ? error.statusCode
-      : typeof error.statusCode === "number" && error.statusCode >= 400 && error.statusCode < 600 ? error.statusCode : 500;
+      : typeof candidateStatus === "number" && candidateStatus >= 400 && candidateStatus < 600 ? candidateStatus : 500;
     const code = error instanceof HttpError ? error.code
       : statusCode === 400 ? "validation_error"
       : statusCode === 413 ? "payload_too_large"
       : statusCode === 429 ? "rate_limited"
       : "internal_error";
-    const message = statusCode >= 500 ? "An unexpected server error occurred." : error.message;
+    const message = statusCode >= 500 ? "An unexpected server error occurred."
+      : typeof candidate.message === "string" ? candidate.message : "Request failed.";
     const payload = { error: { code, message, requestId: request.id } };
     ErrorEnvelopeSchema.parse(payload);
     if (statusCode >= 500) request.log.error({ err: error, requestId: request.id }, "Unhandled API error");

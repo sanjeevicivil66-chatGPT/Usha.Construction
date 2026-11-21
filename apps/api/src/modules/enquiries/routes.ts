@@ -93,6 +93,6 @@ export async function registerEnquiryRoutes(app: FastifyInstance, db: Database.D
       return { response, status: 202 };
     })();
 
-    return reply.code(result.status).send(result.response);
+    return reply.code(202).send(result.response);
   });
 }

@@ -11,14 +11,15 @@ runtime:
   public_site: HTML5/CSS3/vanilla-javascript
   api: Node.js 22, TypeScript, Fastify
   database: SQLite transactional persistence with JSON-shaped records
-  admin_ui: planned component-based TypeScript frontend
+  admin_ui: React, Vite and TypeScript
   package_manager: npm workspaces
 entrypoints:
   public_homepage: index.html
   api_server: apps/api/src/server.ts
+  admin_dev_server: apps/admin
 folders:
   apps/api: "TypeScript Fastify API, configuration, persistence and tests"
-  apps/admin: "Planned component-based owner admin frontend"
+  apps/admin: "React/Vite/TypeScript owner login preview and development-only dashboard shell"
   packages/contracts: "Planned shared versioned JSON Schemas"
   content/blog: "Planned Markdown blog articles"
   content/news: "Planned Markdown news articles"
@@ -38,6 +39,12 @@ files:
     purpose: "Machine-readable project inventory and architecture"
   - path: package.json
     purpose: "npm workspace scripts and Node.js engine policy"
+  - path: apps/admin/package.json
+    purpose: "React/Vite admin UI dependencies and scripts"
+  - path: apps/admin/src/main.tsx
+    purpose: "Admin login preview and development-only empty dashboard shell"
+  - path: apps/admin/src/styles.css
+    purpose: "Responsive USHA admin design system"
   - path: apps/api/package.json
     purpose: "API dependencies and validation scripts"
   - path: apps/api/src/config.ts
@@ -56,11 +63,10 @@ files:
     purpose: "Issue-first implementation, validation and browser verification"
   - path: docs/DEPLOYMENT.md
     purpose: "Public static site and separately approved API deployment plan"
-  - path: docs/INSTRUCTION_CHANGELOG.md
-    purpose: "Durable instruction and workflow changes"
 quality:
   api_tests: "npm test"
-  api_typecheck: "npm run typecheck"
+  typecheck: "npm run typecheck"
+  admin_build: "npm run build:admin"
   api_build: "npm run build:api"
   public_site_validator: "python scripts/validate_site.py"
   browser_verification: "Manual connected interactive browser; do not use Playwright"

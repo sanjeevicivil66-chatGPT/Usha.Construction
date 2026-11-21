@@ -11,15 +11,17 @@ runtime:
   public_site: HTML5/CSS3/vanilla-javascript
   api: Node.js 22, TypeScript, Fastify
   database: SQLite transactional persistence with JSON-shaped records
+  contracts: "@usha/contracts, Zod runtime schemas and inferred TypeScript types"
   admin_ui: planned component-based TypeScript frontend
   package_manager: npm workspaces
 entrypoints:
   public_homepage: index.html
   api_server: apps/api/src/server.ts
+  api_openapi: GET /api/v1/openapi.json
 folders:
-  apps/api: "TypeScript Fastify API, configuration, persistence and tests"
+  apps/api: "TypeScript Fastify API, domain modules, configuration, persistence and tests"
   apps/admin: "Planned component-based owner admin frontend"
-  packages/contracts: "Planned shared versioned JSON Schemas"
+  packages/contracts: "Shared versioned request/response schemas and TypeScript types"
   content/blog: "Planned Markdown blog articles"
   content/news: "Planned Markdown news articles"
   data: "Runtime-only database and backups; never commit or publish"
@@ -37,19 +39,23 @@ files:
   - path: index.yaml
     purpose: "Machine-readable project inventory and architecture"
   - path: package.json
-    purpose: "npm workspace scripts and Node.js engine policy"
+    purpose: "npm workspaces and validation scripts"
   - path: apps/api/package.json
-    purpose: "API dependencies and validation scripts"
-  - path: apps/api/src/config.ts
-    purpose: "Validated API environment configuration"
-  - path: apps/api/src/db.ts
-    purpose: "SQLite connection and initial relational schema"
+    purpose: "Fastify API dependencies and validation scripts"
   - path: apps/api/src/app.ts
-    purpose: "Fastify app, security middleware and health endpoints"
-  - path: apps/api/src/server.ts
-    purpose: "API process lifecycle and graceful shutdown"
-  - path: apps/api/src/app.test.ts
-    purpose: "API health and database schema tests"
+    purpose: "Fastify setup, stable error handling, OpenAPI and module registration"
+  - path: apps/api/src/modules/health/routes.ts
+    purpose: "Legacy and versioned health endpoints"
+  - path: apps/api/src/lib/http-error.ts
+    purpose: "Typed HTTP domain error"
+  - path: apps/api/src/db.ts
+    purpose: "SQLite connection and initial schema (migration hardening is issue #17)"
+  - path: packages/contracts/package.json
+    purpose: "Shared Zod contracts workspace"
+  - path: packages/contracts/src/index.ts
+    purpose: "Shared Zod request/response schemas and TypeScript types"
+  - path: docs/api/README.md
+    purpose: "API versioning, errors, OpenAPI, pagination and validation conventions"
   - path: docs/ADMIN_ARCHITECTURE.md
     purpose: "Phased owner admin architecture and security plan"
   - path: docs/PROJECT_WORKFLOW.md

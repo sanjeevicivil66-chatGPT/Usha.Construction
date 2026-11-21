@@ -4,17 +4,22 @@ Responsive public website and owner-only admin platform for USHA CONSTRUCTION & 
 
 ## Public website
 
-The existing public site remains at the repository root in index.html and is deployed as a Render Static Site. Its enquiry flow prepares a WhatsApp message; it does not store leads server-side.
+The existing public site remains at the repository root in index.html and is deployed as a Render Static Site. Its enquiry form still hands off to WhatsApp; it is not yet connected to the new public enquiry API.
 
 ## Admin platform
 
-- apps/api: TypeScript/Fastify API and SQLite persistence foundation (Phase 1).
+- apps/api: TypeScript/Fastify API, SQLite persistence, versioned migrations, owner-auth endpoints and public enquiry capture.
+- packages/contracts: shared Zod schemas, inferred TypeScript types and generated JSON Schema/OpenAPI.
 - apps/admin: planned component-based admin frontend; not yet implemented.
-- packages/contracts: planned shared versioned JSON Schemas.
 - content/blog and content/news: planned Markdown publishing content.
-- docs/ADMIN_ARCHITECTURE.md: phased implementation and security plan.
+- docs/ADMIN_ARCHITECTURE.md: phased admin delivery plan.
+- docs/api/README.md: API conventions and error/contract rules.
 
-The API is not deployed and does not yet expose admin login or CRM workflows. The existing Render Static Site cannot run the API. A separate backend service and durable database require explicit approval before provisioning or incurring charges.
+Owner authentication and public enquiry APIs are implemented in source but are not deployed. No admin login page or admin URL is available yet. The existing Render Static Site cannot run the API. A separate backend service and durable database require explicit approval before provisioning or incurring charges.
+
+## One-time owner provisioning (only on an approved backend database)
+
+Set USHA_BOOTSTRAP_EMAIL and USHA_BOOTSTRAP_PASSPHRASE privately in the process environment, then run npm run provision:owner. The passphrase must be 14–200 characters. The command refuses to create a second owner. Remove the bootstrap passphrase from the environment immediately after successful provisioning. Never put credentials in Git, shell history, chat, or browser storage.
 
 ## Local API development
 
@@ -27,4 +32,4 @@ Requires Node.js 22+.
 5. npm run typecheck
 6. npm run build:api
 
-Read AGENTS.md, docs/PROJECT_WORKFLOW.md, docs/DEPLOYMENT.md and docs/ADMIN_ARCHITECTURE.md before changes. Never commit credentials, SMTP secrets, tokens, customer data or runtime databases. Do not share an admin URL until all requested features are complete and verified.
+Read AGENTS.md, docs/PROJECT_WORKFLOW.md, docs/DEPLOYMENT.md, docs/ADMIN_ARCHITECTURE.md and docs/api/README.md before changes. Never commit credentials, SMTP secrets, tokens, customer data or runtime databases.

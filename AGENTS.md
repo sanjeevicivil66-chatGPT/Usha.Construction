@@ -1,7 +1,7 @@
 # AGENTS.md — USHA CONSTRUCTION & ARCHITECT
 
 **Status:** Authoritative repository contract  
-**Last reviewed:** 2026-11-20
+**Last reviewed:** 2026-11-21
 
 ## Mission and source of truth
 
@@ -11,16 +11,16 @@ Maintain the public USHA Construction & Architect website and build a secure, ow
 
 - Public website: root index.html, CSS and vanilla JavaScript, deployed as a Render Static Site.
 - API: apps/api, Node.js 22+, TypeScript, Fastify and SQLite.
+- Shared contracts: packages/contracts, Zod schemas and inferred TypeScript types; JSON Schema/OpenAPI generated from the same schemas.
 - Planned admin UI: apps/admin, component-based TypeScript.
-- Planned shared contracts: packages/contracts, versioned JSON Schemas.
 - Planned editorial content: Markdown under content/blog and content/news.
 - Runtime data: data/, never committed or served publicly.
 
-Do not replace the public site or claim the API is deployed. The existing Render Static Site cannot run the API. A separate backend service and durable disk require explicit owner approval before provisioning or incurring charges.
+Do not replace the public site or claim the API is deployed. The existing Render Static Site cannot run this API. A separate backend service and durable disk require explicit owner approval before provisioning or incurring charges.
 
 ## Brand and factual controls
 
-Preserve exact brand spelling: USHA CONSTRUCTION & ARCHITECT. Do not invent customer reviews, completed projects, awards, certifications or guarantees. Rates, inclusions, contact details and claims require owner confirmation before publication. Illustrative imagery must not be represented as completed USHA projects. The public enquiry form hands off to WhatsApp and does not persist leads.
+Preserve exact brand spelling: USHA CONSTRUCTION & ARCHITECT. Do not invent customer reviews, completed projects, awards, certifications or guarantees. Rates, inclusions, contact details and claims require owner confirmation before publication. Illustrative imagery must not be represented as completed USHA projects. The public enquiry form currently hands off to WhatsApp and does not persist leads.
 
 ## Issue-first delivery
 
@@ -40,12 +40,20 @@ Preserve exact brand spelling: USHA CONSTRUCTION & ARCHITECT. Do not invent cust
 - Never commit credentials, tokens, SMTP secrets, customer data or runtime database files.
 - No public registration or customer login in this phase.
 - Admin authentication must use strong password hashing, hashed session identifiers, secure HttpOnly/SameSite cookies, CSRF protection, rate limits, strict origin allowlists and owner-only provisioning.
-- Validate API input against explicit schemas and use parameterized SQL.
+- Validate API input against explicit shared schemas and use parameterized SQL.
 - Use transactions for financial updates and integer minor units for money.
 - SMTP secrets must be write-only/masked, encrypted server-side with managed key material, and never logged or returned to clients.
 - Audit sensitive changes without recording secrets or unnecessary personal data.
 - Backups must be encrypted, access-controlled and restore-tested.
 - Health endpoints must not expose environment values, filesystem paths or personal data.
+
+## API conventions
+
+- Version business routes under /api/v1.
+- Use shared Zod schemas from packages/contracts and derive JSON Schema/OpenAPI from those same definitions.
+- Return errors as { error: { code, message, requestId } }; never return stack traces or internal details.
+- Use bounded pagination, UTC ISO-8601 timestamps, idempotency keys for retried creates and optimistic concurrency for edits.
+- Add domain routes under apps/api/src/modules/<domain>; keep handlers thin and put business rules in services/repositories.
 
 ## Definition of done
 

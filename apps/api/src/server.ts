@@ -4,7 +4,12 @@ import { buildApp } from "./app.js";
 
 const config = loadConfig();
 const db = openDatabase(config.databasePath);
-const app = await buildApp({ db, adminOrigin: config.adminOrigin, logger: config.mode !== "test" });
+const app = await buildApp({
+  db,
+  adminOrigin: config.adminOrigin,
+  secureCookies: config.mode === "production",
+  logger: config.mode !== "test"
+});
 const close = async () => { await app.close(); db.close(); };
 process.once("SIGINT", () => void close().finally(() => process.exit(0)));
 process.once("SIGTERM", () => void close().finally(() => process.exit(0)));

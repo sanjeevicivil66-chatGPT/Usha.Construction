@@ -25,8 +25,8 @@ jobs:
           python-version: "3.12"
       - run: python scripts/validate_site.py
 
-  api:
-    name: API tests, typecheck and build
+  platform:
+    name: API and admin validation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -37,3 +37,4 @@ jobs:
       - run: npm test
       - run: npm run typecheck
       - run: npm run build:api
+      - run: npm run build:admin

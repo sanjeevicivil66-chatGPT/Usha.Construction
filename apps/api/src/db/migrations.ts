@@ -106,7 +106,8 @@ CREATE TRIGGER quote_versions_no_update BEFORE UPDATE ON quote_versions BEGIN SE
 CREATE TRIGGER quote_versions_no_delete BEFORE DELETE ON quote_versions BEGIN SELECT RAISE(ABORT, 'quote versions are immutable'); END;
 CREATE TRIGGER invoice_items_no_update BEFORE UPDATE ON invoice_items BEGIN SELECT RAISE(ABORT, 'issued invoice items are immutable'); END;
 CREATE TRIGGER invoice_items_no_delete BEFORE DELETE ON invoice_items BEGIN SELECT RAISE(ABORT, 'issued invoice items are immutable'); END;
-` }
+` },
+  { version: 3, name: "admin-session-idle-expiry", sql: "ALTER TABLE admin_sessions ADD COLUMN last_seen_at TEXT;" }
 ];
 
 function checksum(sql: string): string {

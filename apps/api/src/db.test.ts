@@ -7,7 +7,7 @@ import { BASELINE_SCHEMA, MIGRATIONS, runMigrations } from "./db/migrations.js";
 test("fresh database applies ordered checksummed migrations", () => {
   const db = openDatabase(":memory:");
   const rows = db.prepare("SELECT version, checksum FROM schema_migrations ORDER BY version").all() as Array<{version:number;checksum:string}>;
-  assert.deepEqual(rows.map(row => row.version), [1, 2]);
+  assert.deepEqual(rows.map(row => row.version), [1, 2, 3]);
   assert.ok(rows.every(row => /^[a-f0-9]{64}$/.test(row.checksum)));
   assert.equal(db.pragma("foreign_keys", { simple: true }), 1);
   db.close();
@@ -25,7 +25,7 @@ test("legacy version-1 database upgrades and preserves existing rows", () => {
   assert.equal(row.id, "customer-1");
   assert.equal(JSON.parse(row.record_json).name, "Existing record");
   assert.equal(row.version, 1);
-  assert.equal((db.prepare("SELECT COUNT(*) AS count FROM schema_migrations").get() as {count:number}).count, 2);
+  assert.equal((db.prepare("SELECT COUNT(*) AS count FROM schema_migrations").get() as {count:number}).count, 3);
   db.close();
 });
 

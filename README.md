@@ -8,14 +8,18 @@ The existing public site remains at the repository root in index.html and is dep
 
 ## Admin platform
 
-- apps/api: TypeScript/Fastify API and SQLite persistence with ordered checksummed migrations.
+- apps/api: TypeScript/Fastify API, SQLite persistence, versioned migrations and owner-auth endpoints.
 - packages/contracts: shared Zod schemas, inferred TypeScript types and generated JSON Schema/OpenAPI.
 - apps/admin: planned component-based admin frontend; not yet implemented.
 - content/blog and content/news: planned Markdown publishing content.
 - docs/ADMIN_ARCHITECTURE.md: phased admin delivery plan.
 - docs/api/README.md: API conventions and error/contract rules.
 
-The API is not deployed and does not yet expose admin login or CRM workflows. The existing Render Static Site cannot run the API. A separate backend service and durable database require explicit approval before provisioning or incurring charges.
+Owner authentication API is implemented in source but is not deployed. No admin login page or admin URL is available yet. The existing Render Static Site cannot run the API. A separate backend service and durable database require explicit approval before provisioning or incurring charges.
+
+## One-time owner provisioning (only on an approved backend database)
+
+Set USHA_BOOTSTRAP_EMAIL and USHA_BOOTSTRAP_PASSPHRASE privately in the process environment, then run npm run provision:owner. The passphrase must be 14–200 characters. The command refuses to create a second owner. Remove the bootstrap passphrase from the environment immediately after successful provisioning. Never put credentials in Git, shell history, chat, or browser storage.
 
 ## Local API development
 

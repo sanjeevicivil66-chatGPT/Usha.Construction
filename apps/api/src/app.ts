@@ -2,13 +2,15 @@ import Fastify, { type FastifyInstance } from "fastify";
 import helmet from "@fastify/helmet";
 import cors from "@fastify/cors";
 import rateLimit from "@fastify/rate-limit";
+import cookie from "@fastify/cookie";
 import swagger from "@fastify/swagger";
 import type Database from "better-sqlite3";
 import { ErrorEnvelopeSchema } from "@usha/contracts";
 import { HttpError } from "./lib/http-error.js";
 import { registerHealthRoutes } from "./modules/health/routes.js";
+import { registerAuthRoutes } from "./modules/auth/routes.js";
 
-export async function buildApp(options: { db: Database.Database; adminOrigin?: string; logger?: boolean }): Promise<FastifyInstance> {
+export async function buildApp(options: { db: Database.Database; adminOrigin?: string; logger?: boolean; secureCookies?: boolean }): Promise<FastifyInstance> {
   const app = Fastify({
     logger: options.logger ?? false,
     trustProxy: false,
@@ -26,6 +28,7 @@ export async function buildApp(options: { db: Database.Database; adminOrigin?: s
       directives: { defaultSrc: ["'self'"], objectSrc: ["'none'"], frameAncestors: ["'none'"], baseUri: ["'self'"] }
     }
   });
+  await app.register(cookie);
   await app.register(cors, {
     origin: options.adminOrigin ? [options.adminOrigin] : false,
     credentials: true,
@@ -35,7 +38,7 @@ export async function buildApp(options: { db: Database.Database; adminOrigin?: s
   await app.register(swagger, {
     openapi: {
       info: { title: "USHA Construction API", version: "1.0.0", description: "Owner-operated USHA platform API" },
-      tags: [{ name: "system", description: "Service health and metadata" }]
+      tags: [{ name: "system", description: "Service health and metadata" }, { name: "admin-auth", description: "Owner authentication" }]
     }
   });
 
@@ -58,6 +61,11 @@ export async function buildApp(options: { db: Database.Database; adminOrigin?: s
   });
 
   await registerHealthRoutes(app);
+  await registerAuthRoutes(app, {
+    db: options.db,
+    adminOrigin: options.adminOrigin,
+    secureCookies: options.secureCookies ?? false
+  });
 
   app.get("/api/v1/openapi.json", { schema: { hide: true } }, async (_request, reply) => {
     return reply.type("application/json").send(app.swagger());

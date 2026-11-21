@@ -1,11 +1,20 @@
 # Instruction and workflow changelog
 
+## 2026-11-21 — Issue #18 owner authentication
+
+- Added Argon2id owner provisioning CLI; no default credentials or public signup.
+- Added hashed opaque sessions, HttpOnly/SameSite cookies, readable CSRF cookie plus synchronizer-token hash, exact-origin checks, login rate limiting, absolute and idle expiry, logout and password change.
+- Added auth audit events and tests for anonymous access, origin validation, login, session use, CSRF logout and revocation.
+- Owner provisioning requires private bootstrap email/passphrase environment values and must run only once against an approved durable database.
+- No admin frontend, public login URL or production API deployment is included.
+
 ## 2026-11-21 — Issue #17 versioned SQLite migrations
 
 - Replaced the single startup SQL string with ordered, SHA-256-checksummed forward migrations.
 - Added safe recognition and upgrade of the previously deployed schema version 1 without dropping existing records.
 - Added normalized customer search fields, optimistic version columns, activity events, idempotency keys, immutable quote/invoice snapshots, outbox attempts and append-only audit constraints.
-- Added migration replay, checksum drift and legacy-upgrade tests.
+- Added a session idle-expiry field as migration version 3.
+- Added migration replay, checksum drift, legacy-upgrade and append-only tests.
 - No destructive rollback is automated; backup and restore remain explicit operational procedures.
 
 ## 2026-11-21 — Issue #16 modular API and shared contracts
@@ -28,4 +37,4 @@
 ## 2026-11-20 — Issue-first Git workflow and browser-verification gate
 
 - Required issue-first branches, linked PRs/commits, owner-approved releases and responsive browser evidence.
-- The owner has instructed not to use Playwright; project browser verification now requires a connected interactive browser. If unavailable, keep PR draft/unverified.
+- The owner has instructed not to use Playwright; project browser verification requires a connected interactive browser. If unavailable, keep PR draft/unverified.
